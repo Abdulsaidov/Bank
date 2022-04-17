@@ -1,0 +1,22 @@
+server:
+  servlet:
+    context-path: "/api"
+spring:
+  datasource:
+    url: jdbc:h2:mem:bankdb
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: "org.hibernate.dialect.H2Dialect"
+  liquibase:
+    enabled: true
+    drop-first: false
+    change-log: classpath:db/master.xml
+    default-schema: public
+
+springdoc:
+  api-docs:
+    path: "/api-docs" #api will response on /api-docs
+  swagger-ui:
+    path: "/swagger-ui.html" # swagger: http://localhost:8080/api/swagger-ui.html
