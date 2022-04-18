@@ -6,4 +6,45 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
+    <changeSet id="2022-04-18 Hibernate Init" author="Ivanitskiy Alexey" dbms="h2, postgresql">
+        <createSequence sequenceName="hibernate_sequence" incrementBy="1" startValue="${id.start.value}"/>
+    </changeSet>
+
+    <changeSet id="2022-04-18 Added table of users" author="Ivanitskiy Alexey" dbms="h2, postgresql">
+        <createTable tableName="users" remarks="Users of the system">
+            <column name="id" remarks="ID" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_user"/>
+            </column>
+            <column name="version" remarks="Entity version" type="java.sql.Types.INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" remarks="Users first name" type="${string.type}(127 ${string.unit})">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" remarks="Users last name" type="${string.type}(127 ${string.unit})">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" remarks="Email" type="${string.type}(256 ${string.unit})">
+                <constraints nullable="false"/>
+            </column>
+            <column name="locale_name" remarks="Preferred user locale in the system"
+                    type="${string.type}(50 ${string.unit})" defaultValue="en_US">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" remarks="Phone" type="${string.type}(50 ${string.unit})">
+                <constraints nullable="true"/>
+            </column>
+            <column name="is_deleted" remarks="Deleted" type="java.sql.Types.BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="added_date" remarks="Date/time of added" type="${timestamp.type}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_date" remarks="Date/time of change" type="${timestamp.type}">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <sql dbms="mssql">DBCC CHECKIDENT ('users', RESEED, ${id.start.value});</sql>
+    </changeSet>
+
 </databaseChangeLog>
