@@ -6,6 +6,25 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
+    <property name="id.start.value" value="100"/>
+
+    <property name="timestamp.type" value="timestamp(8)" dbms="postgresql"/>
+    <property name="timestamp.type" value="timestamp(8)" dbms="h2"/>
+
+    <property name="string.type" value="java.sql.Types.VARCHAR" dbms="postgresql"/>
+    <property name="string.type" value="java.sql.Types.VARCHAR" dbms="h2"/>
+
+    <property name="text.type" value="text" dbms="postgresql"/>
+    <property name="text.type" value="text" dbms="h2"/>
+
+    <property name="string.unit" value="" dbms="postgresql"/>
+    <property name="string.unit" value="" dbms="h2"/>
+
+    <property name="current.date" value="current_date" dbms="postgresql"/>
+    <property name="current.date" value="current_date" dbms="h2"/>
+
+
+
     <include file="changelog/0.0.1-changeset.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
