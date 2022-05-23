@@ -4,12 +4,7 @@ import com.banksystem.core.entity.User;
 import com.banksystem.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,7 +21,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<User> getUserById(@PathVariable Long userId) {
+    public ResponseEntity<User> getUserById(@PathVariable ("userId") Long userId) {
         User user = userService.getUserById(userId);
         return ResponseEntity.ok(user);
     }
@@ -37,10 +32,22 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @PostMapping
+    @PostMapping("/new")
     public ResponseEntity<User> create(@RequestBody User user) {
         User createdUser = userService.create(user);
         return ResponseEntity.ok(createdUser);
+    }
+
+    @PatchMapping ("/{userId}/edit")
+    public ResponseEntity<User> editUser (@PathVariable ("userId") Long userId , @RequestBody  User user){
+        User updatedUser = userService.updateUser(user);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @DeleteMapping ("/{userId}")
+    public String deleteUser (@PathVariable ("userId") Long userId) {
+        userService.removeUserById(userId);
+        return "redirect: /v1/users";
     }
 
 }

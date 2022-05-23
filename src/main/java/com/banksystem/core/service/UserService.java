@@ -11,6 +11,8 @@ import java.util.List;
 
 @Service
 public class UserService {
+// прослойка между контроллером и моделью, здесь пишется бизнес логика
+    // вычисления
 
     public final BaseRepository<User, Long> repository;
     public final GenericRepository<User, Long> genericRepository;
@@ -23,6 +25,10 @@ public class UserService {
     }
 
     // for example
+    public User create(User user) {
+        return repository.save(user);
+    }
+
     public User getUserById(Long id) {
         return genericRepository.findById(id, User.class)
                 .orElseThrow(() -> new NotFoundException(id, User.class));
@@ -36,7 +42,14 @@ public class UserService {
         return repository.findAll();
     }
 
-    public User create(User user) {
-        return repository.save(user);
+    // update
+    public User updateUser (User updatedUser) {
+        return repository.save(updatedUser);
     }
+    // delete
+    public void removeUserById (Long id) {
+        repository.deleteById(id);
+    }
+
+
 }
