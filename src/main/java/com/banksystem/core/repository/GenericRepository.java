@@ -19,4 +19,8 @@ public class GenericRepository<T, ID> {
     public Optional<T> findById(ID id, Class<T> type) {
         return Optional.ofNullable(entityManager.find(type, id));
     }
+
+    //    public void saveUser(User user) {
+//        entityManager.persist(user);
+//    }
 }

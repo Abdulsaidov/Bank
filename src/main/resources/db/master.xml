@@ -8,7 +8,7 @@
 
     <property name="id.start.value" value="100"/>
 
-    <property name="timestamp.type" value="timestamp(8)" dbms="postgresql"/>
+    <property name="timestamp.type" value="timestamp(6)" dbms="postgresql"/>
     <property name="timestamp.type" value="timestamp(8)" dbms="h2"/>
 
     <property name="string.type" value="java.sql.Types.VARCHAR" dbms="postgresql"/>
