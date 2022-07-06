@@ -1,18 +1,21 @@
 package com.banksystem.core.service;
 
+import com.banksystem.core.dto.RequestUserDTO;
 import com.banksystem.core.entity.User;
 import com.banksystem.core.exception.NotFoundException;
 import com.banksystem.core.repository.BaseRepository;
 import com.banksystem.core.repository.GenericRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class UserService {
-// прослойка между контроллером и моделью, здесь пишется бизнес логика
-    // вычисления
 
     public final BaseRepository<User, Long> repository;
     public final GenericRepository<User, Long> genericRepository;
@@ -24,8 +27,14 @@ public class UserService {
         this.genericRepository = genericRepository;
     }
 
-    // for example
-    public User create(User user) {
+    public User create(RequestUserDTO requestUserDTO) {
+        User user = new User();
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.map(requestUserDTO,user);
+        user.setIsDeleted(false);
+        //можно повыдумывать по поводу часовых поясов потом
+        user.setAddedDate(OffsetDateTime.now());
+        user.setModifiedDate(null);
         return repository.save(user);
     }
 
@@ -42,11 +51,13 @@ public class UserService {
         return repository.findAll();
     }
 
-    // update
-    public User updateUser (User updatedUser) {
-        return repository.save(updatedUser);
+    public void updateUser(Long userId, RequestUserDTO requestUserDTO) {
+        User current = getUserById(userId);
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.map(requestUserDTO,current);
+        current.setModifiedDate(OffsetDateTime.now());
     }
-    // delete
+
     public void removeUserById (Long id) {
         repository.deleteById(id);
     }
