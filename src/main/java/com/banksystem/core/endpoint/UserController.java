@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-//todo: change user to DTO
 //todo: handler for validation exception
 @RestController
 @RequestMapping("/v1/users")
@@ -38,7 +37,7 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @PostMapping("/new")
+    @PostMapping()
     public ResponseEntity<HttpStatus> create(@RequestBody @Valid RequestUserDTO requestUserDTO) {
         userService.create(requestUserDTO);
         return ResponseEntity.ok(HttpStatus.OK);
