@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 @Getter
@@ -37,15 +38,16 @@ public class User extends BaseEntity {
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted;
 
-    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "added_date", nullable = false)
-    private Date addedDate;
+    private OffsetDateTime addedDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modified_date")
-    private Date modifiedDate;
+    private OffsetDateTime modifiedDate;
 
-    protected User() { }
+    // тут конечно интересно, надо пообсуждать. использование маппера на одной чаше весов, а протектед конструктор на другой
+    public User() { }
 
     public User(String firstName, String lastName, String email,
                 Locale locale, String phoneNumber, Boolean isDeleted) {
