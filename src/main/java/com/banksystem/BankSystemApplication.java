@@ -14,6 +14,7 @@ public class BankSystemApplication {
         SpringApplication.run(BankSystemApplication.class, args);
     }
 
+    // todo: ты создал бин, но не используешь его по проекту. Создаешь новые объекты ModelMapper. Это странно!
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();

@@ -31,21 +31,25 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<HttpStatus> create(@RequestBody @Valid RequestUserDTO requestUserDTO) {
         userService.create(requestUserDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
+    /** todo: patch должен обновлять часть бд. у тебя сейчас валидация
+     * стоит на весь дто. т.е. если я хочу изменить только firstName будет ошибка
+     * Или здесь нужен put метод или доработать patch...
+     */
     @PatchMapping("/{userId}/edit")
-    public ResponseEntity<HttpStatus> editUser(@PathVariable Long userId, @RequestBody @Valid RequestUserDTO requestUserDTO) {
-
+    public ResponseEntity<HttpStatus> editUser(@PathVariable Long userId,
+                                               @RequestBody @Valid RequestUserDTO requestUserDTO) {
         userService.updateUser(userId, requestUserDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }

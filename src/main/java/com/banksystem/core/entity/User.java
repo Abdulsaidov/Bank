@@ -8,10 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.time.OffsetDateTime;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -38,11 +35,11 @@ public class User extends BaseEntity {
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted;
 
-//    @Temporal(TemporalType.TIMESTAMP)
+    // todo: temporal нужен чтобы определить время которое будет хранится в бд для Date and Calendar
+    // есть Date, Time, Timestamp. offset не нужно это
     @Column(name = "added_date", nullable = false)
     private OffsetDateTime addedDate;
 
-//    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modified_date")
     private OffsetDateTime modifiedDate;
 

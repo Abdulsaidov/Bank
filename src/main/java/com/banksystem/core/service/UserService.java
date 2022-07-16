@@ -9,9 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.time.OffsetDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,7 +28,7 @@ public class UserService {
     public User create(RequestUserDTO requestUserDTO) {
         User user = new User();
         ModelMapper modelMapper = new ModelMapper();
-        modelMapper.map(requestUserDTO,user);
+        modelMapper.map(requestUserDTO, user);
         user.setIsDeleted(false);
         //можно повыдумывать по поводу часовых поясов потом
         user.setAddedDate(OffsetDateTime.now());
@@ -41,10 +39,6 @@ public class UserService {
     public User getUserById(Long id) {
         return genericRepository.findById(id, User.class)
                 .orElseThrow(() -> new NotFoundException(id, User.class));
-
-//        return repository
-//                .findById(id)
-//                .orElseThrow(() -> new NotFoundException(id, User.class));
     }
 
     public List<User> getAllUsers() {
@@ -54,7 +48,7 @@ public class UserService {
     public void updateUser(Long userId, RequestUserDTO requestUserDTO) {
         User current = getUserById(userId);
         ModelMapper modelMapper = new ModelMapper();
-        modelMapper.map(requestUserDTO,current);
+        modelMapper.map(requestUserDTO, current);
         current.setModifiedDate(OffsetDateTime.now());
     }
 
